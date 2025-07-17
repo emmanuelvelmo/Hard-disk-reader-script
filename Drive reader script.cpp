@@ -7,14 +7,14 @@
 class lector_disco
 {
     private:
-        HANDLE manejador_disco; // Manejador para acceder al dispositivo fÌsico
-        DWORD tam_sector; // TamaÒo del sector en bytes (usualmente 512)
+        HANDLE manejador_disco; // Manejador para acceder al dispositivo f√≠sico
+        DWORD tam_sector; // Tama√±o del sector en bytes (usualmente 512)
 
     public:
-        // Constructor inicializa manejador inv·lido y sector tamaÒo por defecto
+        // Constructor inicializa manejador inv√°lido y sector tama√±o por defecto
         lector_disco() : manejador_disco(INVALID_HANDLE_VALUE), tam_sector(512) {}
 
-        // Destructor cierra el manejador si est· abierto
+        // Destructor cierra el manejador si est√° abierto
         ~lector_disco()
         {
             if (manejador_disco != INVALID_HANDLE_VALUE)
@@ -38,9 +38,9 @@ class lector_disco
 
             if (manejador_disco == INVALID_HANDLE_VALUE) return false; // Si falla abrir, retornar falso
 
-            tam_sector = 512; // Asignar tamaÒo sector fijo (mejorable)
+            tam_sector = 512; // Asignar tama√±o sector fijo (mejorable)
 
-            return true; // …xito en apertura
+            return true; // √âxito en apertura
         }
 
         // Lee datos sin procesar desde offset (en bytes) directamente al buffer
@@ -53,7 +53,7 @@ class lector_disco
             SetFilePointer(manejador_disco, posicion.LowPart, &posicion.HighPart, FILE_BEGIN);
 
             DWORD bytes_leidos;
-            // Lee tamaÒo 'tam' bytes desde disco en buffer, devuelve true si leyÛ exactamente 'tam'
+            // Lee tama√±o 'tam' bytes desde disco en buffer, devuelve true si ley√≥ exactamente 'tam'
             return ReadFile(manejador_disco, buffer, static_cast<DWORD>(tam), &bytes_leidos, nullptr) && bytes_leidos == tam;
         }
 
@@ -61,7 +61,7 @@ class lector_disco
         void mostrar_volcado_hex(uint64_t offset, size_t filas, size_t columnas)
         {
             size_t tam = filas * columnas; // Total bytes a mostrar
-            // Calcula tamaÒo alineado al tamaÒo del sector para lectura sin buffer
+            // Calcula tama√±o alineado al tama√±o del sector para lectura sin buffer
             size_t tam_alineado = ((tam + tam_sector - 1) / tam_sector) * tam_sector;
 
             // Reserva buffer alineado a sector (requisito para lectura sin buffering)
@@ -78,11 +78,11 @@ class lector_disco
                 // Recorre columnas
                 for (size_t col = 0; col < columnas; ++col)
                 {
-                    // Imprime byte en hex con formato 2 dÌgitos, rellenando con 0 si necesario
+                    // Imprime byte en hex con formato 2 d√≠gitos, rellenando con 0 si necesario
                     std::cout << std::hex << std::setw(2) << std::setfill('0') << (int)datos[fila * columnas + col] << " ";
                 }
 
-                std::cout << "\n"; // Salto de lÌnea al terminar fila
+                std::cout << "\n"; // Salto de l√≠nea al terminar fila
             }
             _aligned_free(buffer); // Libera el buffer alineado
         }
