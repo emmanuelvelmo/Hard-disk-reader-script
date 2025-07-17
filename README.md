@@ -1,4 +1,4 @@
-# Hard disk reader script
+# Drive reader script
 -
 
 <p align="left">
