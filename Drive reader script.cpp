@@ -24,10 +24,10 @@ int main()
 
     ReadFile(manejador_disco, buffer, 512, &bytes_leidos, nullptr);
 
-    // Mostrar tabla 16x16 (256 bytes)
-    uint8_t* datos = (uint8_t*)buffer;
+    // Conversión de puntero
+    uint8_t* datos = static_cast<uint8_t*>(buffer);
 
-    // Tabla 16x16
+    // Mostrar tabla 16x16 (256 bytes)
     for (int fila = 0; fila < 16; fila++)
     {
         for (int col = 0; col < 16; col++)
