@@ -8,7 +8,7 @@ int main()
     // Abrir disco C directamente
     HANDLE manejador_disco = CreateFileW(
         L"\\\\.\\C:", // Ruta al disco C:
-        GENERIC_READ, // Solo lectura
+        GENERIC_READ | GENERIC_WRITE, // Permisos de lectura y escritura
         FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, // Compartir acceso
         nullptr, // Sin seguridad
         OPEN_EXISTING, // Abrir si existe
