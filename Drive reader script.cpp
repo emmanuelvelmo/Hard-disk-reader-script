@@ -22,6 +22,7 @@ int main()
     // Leer primer sector desde offset 0
     DWORD bytes_leidos;
 
+    // Lee 512 bytes del disco al buffer
     ReadFile(manejador_disco, buffer, 512, &bytes_leidos, nullptr);
 
     // Conversión de puntero
