@@ -23,7 +23,13 @@ int main()
     DWORD bytes_leidos;
 
     // Lee 512 bytes del disco al buffer
-    ReadFile(manejador_disco, buffer, 512, &bytes_leidos, nullptr);
+    ReadFile(
+        manejador_disco, // El identificador del disco/archivo abierto con CreateFile()
+        buffer, // Puntero al buffer donde se guardarán los datos leídos
+        512, // Número de bytes a leer (debe ser múltiplo del tamaño de sector)
+        &bytes_leidos, // Dirección de una variable donde se almacenará el número real de bytes leídos
+        nullptr // NULL para operación síncrona (si no, usar estructura OVERLAPPED para I/O asíncrono)
+    );
 
     // Conversión de puntero
     uint8_t* datos = static_cast<uint8_t*>(buffer);
@@ -39,10 +45,11 @@ int main()
         std::cout << "\n";
     }
 
-    // Limpieza
+    // Liberar memoria
     _aligned_free(buffer);
     CloseHandle(manejador_disco);
 
+    // Detener el programa hasta presionar una tecla
     system("pause");
 
     return 0;
