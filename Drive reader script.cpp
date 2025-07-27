@@ -46,8 +46,8 @@ int main()
     }
 
     // Liberar memoria
-    _aligned_free(buffer);
-    CloseHandle(manejador_disco);
+    _aligned_free(buffer); // 
+    CloseHandle(manejador_disco); // 
 
     // Detener el programa hasta presionar una tecla
     system("pause");
